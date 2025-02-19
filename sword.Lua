@@ -1,4 +1,4 @@
--- لا تسرق ال GUI رجاءء
+-- شلونك
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
