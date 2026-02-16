@@ -93,7 +93,7 @@ local notificationCorner = Instance.new("UICorner", notification)
 notificationCorner.CornerRadius = UDim.new(0, 10)
 
 checkButton.MouseButton1Click:Connect(function()
-    if keyInput.Text == "script123ghost" then
+    if keyInput.Text == "script123" then
         frame:Destroy()
         local link = "https://t.me/eaq13e"
 setclipboard(link)
