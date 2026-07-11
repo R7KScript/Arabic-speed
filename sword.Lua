@@ -10,119 +10,70 @@
 
 
 
-local ui = Instance.new("ScreenGui")
-local frame = Instance.new("Frame")
-local title = Instance.new("TextLabel")
-local keyInput = Instance.new("TextBox")
-local checkButton = Instance.new("TextButton")
-local getKeyButton = Instance.new("TextButton")
-local closeButton = Instance.new("TextButton")
-local UICorner = Instance.new("UICorner")
-local UIStroke = Instance.new("UIStroke")
+local TeleportService = game:GetService("TeleportService")
+local SetClipboard = setclipboard or toclipboard or (Clipboard and Clipboard.set)
 
-ui.Parent = game.CoreGui
-frame.Parent = ui
-frame.Size = UDim2.new(0, 300, 0, 200)
-frame.Position = UDim2.new(0.5, -150, 0.5, -100)
-frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-frame.BackgroundTransparency = 0.4
-frame.BorderSizePixel = 0
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "SCN_HUB_NOTICE"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.Parent = game:GetService("CoreGui")
 
-UICorner.CornerRadius = UDim.new(0, 15)
-UICorner.Parent = frame
+local Main = Instance.new("Frame")
+Main.Size = UDim2.new(0, 430, 0, 220)
+Main.Position = UDim2.new(0.5, -215, 0.5, -110)
+Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+Main.BorderSizePixel = 0
+Main.Parent = ScreenGui
 
-UIStroke.Parent = frame
-UIStroke.Color = Color3.fromRGB(250, 0, 0)
-UIStroke.Thickness = 3
-UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0, 12)
+Corner.Parent = Main
 
-title.Parent = frame
-title.Size = UDim2.new(1, 0, 0, 50)
-title.Text = "أدخل المفتاح:"
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.BackgroundTransparency = 1
-title.Font = Enum.Font.SourceSansBold
-title.TextSize = 20
+local Stroke = Instance.new("UIStroke")
+Stroke.Color = Color3.fromRGB(50, 50, 50)
+Stroke.Thickness = 1.5
+Stroke.Parent = Main
 
-keyInput.Parent = frame
-keyInput.Size = UDim2.new(0.8, 0, 0, 40)
-keyInput.Position = UDim2.new(0.1, 0, 0.3, 0)
-keyInput.PlaceholderText = "أدخل المفتاح هنا..."
-keyInput.Text = ""
-keyInput.Font = Enum.Font.SourceSans
-keyInput.TextSize = 18
-keyInput.TextColor3 = Color3.fromRGB(0, 0, 0)
-keyInput.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 45)
+Title.BackgroundTransparency = 1
+Title.Text = "⚠ تم تعطيل السكربت"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Font = Enum.Font.GothamBold
+Title.TextScaled = true
+Title.Parent = Main
 
-checkButton.Parent = frame
-checkButton.Size = UDim2.new(0.8, 0, 0, 40)
-checkButton.Position = UDim2.new(0.1, 0, 0.55, 0)
-checkButton.Text = "تحقق"
-checkButton.Font = Enum.Font.SourceSansBold
-checkButton.TextSize = 18
-checkButton.BackgroundColor3 = Color3.fromRGB(250, 0, 0)
-checkButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+local Text = Instance.new("TextLabel")
+Text.Size = UDim2.new(1, -30, 0, 80)
+Text.Position = UDim2.new(0, 15, 0, 55)
+Text.BackgroundTransparency = 1
+Text.TextWrapped = true
+Text.Text = "انضم إلى قناة التليجرام لمعرفة آخر الأخبار والتحديثات الخاصة بالسكربتات."
+Text.TextColor3 = Color3.fromRGB(190,190,190)
+Text.Font = Enum.Font.Gotham
+Text.TextScaled = true
+Text.Parent = Main
 
-getKeyButton.Parent = frame
-getKeyButton.Size = UDim2.new(0.8, 0, 0, 40)
-getKeyButton.Position = UDim2.new(0.1, 0, 0.75, 0)
-getKeyButton.Text = "احصل على المفتاح"
-getKeyButton.Font = Enum.Font.SourceSansBold
-getKeyButton.TextSize = 18
-getKeyButton.BackgroundColor3 = Color3.fromRGB(250, 0, 0)
-getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+local Button = Instance.new("TextButton")
+Button.Size = UDim2.new(0.8, 0, 0, 45)
+Button.Position = UDim2.new(0.1, 0, 1, -60)
+Button.BackgroundColor3 = Color3.fromRGB(35,35,35)
+Button.Text = "نسخ رابط قناة التليجرام"
+Button.TextColor3 = Color3.new(1,1,1)
+Button.Font = Enum.Font.GothamBold
+Button.TextScaled = true
+Button.Parent = Main
 
-closeButton.Parent = frame
-closeButton.Size = UDim2.new(0, 30, 0, 30)
-closeButton.Position = UDim2.new(1, -35, 0, 5)
-closeButton.Text = "X"
-closeButton.Font = Enum.Font.SourceSansBold
-closeButton.TextSize = 18
-closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+local ButtonCorner = Instance.new("UICorner")
+ButtonCorner.CornerRadius = UDim.new(0,10)
+ButtonCorner.Parent = Button
 
-local buttonCorner1 = Instance.new("UICorner", checkButton)
-buttonCorner1.CornerRadius = UDim.new(0, 10)
-local buttonCorner2 = Instance.new("UICorner", getKeyButton)
-buttonCorner2.CornerRadius = UDim.new(0, 10)
-local buttonCorner3 = Instance.new("UICorner", closeButton)
-buttonCorner3.CornerRadius = UDim.new(1, 0)
-
-
-local notification = Instance.new("TextLabel")
-notification.Parent = ui
-notification.Size = UDim2.new(0, 300, 0, 50)
-notification.Position = UDim2.new(0.5, -150, 0.1, 0)
-notification.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-notification.BackgroundTransparency = 0.5
-notification.TextColor3 = Color3.fromRGB(255, 255, 255)
-notification.Font = Enum.Font.SourceSansBold
-notification.TextSize = 18
-notification.Text = "تم نسخ قناة التليجرام (فيه رابط المفتاح)"
-notification.Visible = false
-
-local notificationCorner = Instance.new("UICorner", notification)
-notificationCorner.CornerRadius = UDim.new(0, 10)
-
-checkButton.MouseButton1Click:Connect(function()
-    if keyInput.Text == "key123_123" then
-        frame:Destroy()
-        local link = "https://t.me/eaq13e"
-setclipboard(link)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/R7KScript/Arabic-speed/refs/heads/main/Script_R7K_Arab.txt"))()
-
-        keyInput.Text = ""
-        keyInput.PlaceholderText = "المفتاح خاطئ! حاول مرة أخرى"
-    end
-end)
-
-getKeyButton.MouseButton1Click:Connect(function()
-    setclipboard("https://t.me/eaq13e")
-    notification.Visible = true
-    wait(2)
-    notification.Visible = false
-end)
-
-closeButton.MouseButton1Click:Connect(function()
-    ui:Destroy()
+Button.MouseButton1Click:Connect(function()
+	if SetClipboard then
+		SetClipboard("https://t.me/scn_hub")
+		Button.Text = "✓ تم نسخ الرابط"
+	else
+		Button.Text = "المشغل لا يدعم النسخ"
+	end
 end)
